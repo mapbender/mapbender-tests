@@ -17,6 +17,7 @@
 import './commands'
 import './custom'
 import './layer'
+import './dev'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
