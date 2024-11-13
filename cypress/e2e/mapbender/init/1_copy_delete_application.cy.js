@@ -1,17 +1,21 @@
 describe('copy_delete_application', () => {
+    const myApp = Cypress.env('application');
+    const myAppTitle = myApp['title'];
+    const myAppSlug = myApp['slug'];
+    const user = myApp['user'];
+    const password = myApp['password'];
 
     beforeEach(() => {
         cy.visit('http://localhost/mapbender4/index.php/');
-        cy.login({_username: 'root', _password: 'root'});
+        cy.login({_username: user, _password: password});
     });
 
     it('Copy Application', () => {
-        cy.copyApplication({ _title: 'Mapbender Demo Cypress', _slug:'Mapbender_Demo_CYPRESS' });
+        cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug });
         cy.visit('http://localhost/mapbender4/index.php/');
-        cy.contains('Mapbender Demo Cypress').scrollIntoView({ offset: { top: -100, left:0 } });
-        //cy.contains('Mapbender Demo Cypress').scrollIntoView({ block: 'center', offset: { top: -100, left:0 } });
-        cy.wait(6000);
-        cy.deleteApplication({ _apptitle: 'Mapbender Demo Cypress'});
+        cy.contains('Mapbender Demo Cypress').scrollIntoView({ offset: { top: -200, left:0 } });
+        cy.wait(2000);
+        cy.deleteApplication({ _slug: myAppSlug });
     });
 
 });
