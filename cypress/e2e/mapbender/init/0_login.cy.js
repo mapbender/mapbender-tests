@@ -2,8 +2,9 @@ describe('mapbender login to app', () => {
     const myApp = Cypress.env('application');
     const user = myApp['user'];
     const password = myApp['password'];
+    const mainUrl = myApp['mainUrl'];
     beforeEach(() => {
-        cy.visit('http://localhost/mapbender4/');
+        cy.visit(mainUrl);
     });
 
     it('login', () => {

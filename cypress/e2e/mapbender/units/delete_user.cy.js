@@ -1,12 +1,17 @@
 describe('delete Mapbender User', () => {
+    const myApp = Cypress.env('application');
+    const user = myApp['user'];
+    const password = myApp['password'];
+    const mainUrl = myApp['mainUrl'];
+    const userName = 'Norbert Nordpol';
 
     beforeEach(() => {
-        cy.visit('http://localhost/mapbender_bahn/app_dev.php/')
-        cy.login({_username: 'root', _password: 'voo6Sheb'})
+        cy.visit(mainUrl);
+        cy.login({_username: user, _password: password});
     })
 
     it('deleteMapbenderUser ', () => {
-        cy.deleteMapbenderUser(10);
+        cy.deleteMapbenderUser(userName);
     });
 
 

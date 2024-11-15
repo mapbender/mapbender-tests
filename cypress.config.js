@@ -14,6 +14,7 @@ module.exports = defineConfig({
         slug : 'Mapbender_Demo_CYPRESS',
         user: 'root',
         password: 'root',
+        mainUrl: 'http://localhost/mapbender4/',
         layer : {
             1 : 'Themen'
         },

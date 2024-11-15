@@ -1,13 +1,19 @@
+const userName = 'Norbert Nordpol';
+const userMail = 'norbert.nordpol@nn.org';
+const userPassword = '12345678';
 describe('create new user', () => {
+    const myApp = Cypress.env('application');
+    const user = myApp['user'];
+    const password = myApp['password'];
+    const mainUrl = myApp['mainUrl'];
 
     beforeEach(() => {
-        cy.visit('http://localhost/mapbender_bahn/app_dev.php/')
-        cy.login({_username: 'root', _password: 'voo6Sheb'})
-    })
-
-    it('addMapbenderUser ', () => {
-        cy.addMapbenderUser({ _username: 'Norbert Nordpol', _email: 'norbert.nordpol@nn.org', _password: '12345678' });
+        cy.visit(mainUrl);
+        cy.login({_username: user, _password: password});
     });
 
+    it('addMapbenderUser ', () => {
+        cy.addMapbenderUser({ _username: userName, _email: userMail, _password: userPassword });
+    });
 
 })
