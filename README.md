@@ -4,7 +4,7 @@
 
 ### Configuration
 
-The following parameters must be entered in cypress.config.js.
+The following parameters must be entered in `cypress.config.js`.
 
 - title : 'Mapbender Demo Cypress',
 - slug : 'Mapbender_Demo_CYPRESS',
@@ -74,3 +74,39 @@ parameters:
     \# uncomment this if you don't want the language to automatically adapt to the browser language  
     mapbender.automatic_locale: false  
 ```
+
+### Installation Cypress
+
+Node.js and npm:  
+Make sure Node.js and the package manager npm (or alternatively yarn or pnpm) are installed on your system.  
+If not, you can install them via the package management system:
+
+**Ubuntu/Debian**  
+```
+sudo apt update
+sudo apt install nodejs npm
+```
+
+**Install Cypress in a Directory of your Choice**
+
+```
+npm install cypress --save-dev
+```
+You can also use yarn or pnpm:
+```
+# yarn
+yarn add cypress --dev
+
+# pnpm
+pnpm add --save-dev cypress
+```
+
+**Open Cypress**
+````
+npx cypress open
+````
+For more information please visit the official cypress documentation.  
+
+### Official documentation
+
+The official documentation can be found here: [docs.cypress.io](https://docs.cypress.io/).  
