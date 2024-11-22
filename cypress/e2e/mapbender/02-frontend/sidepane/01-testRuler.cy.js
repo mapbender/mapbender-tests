@@ -1,52 +1,54 @@
-describe('Test Fläche messen', () => {
+describe('Test Ruler', () => {
+    const myApp = Cypress.env('application');
+    const myAppTitle = myApp['title'];
+    const myAppSlug = myApp['slug'];
+    const user = myApp['user'];
+    const password = myApp['password'];
+    const mainUrl = myApp['mainUrl'];
+
     beforeEach(() => {
-        cy.visit('http://localhost/mapbender_bahn/app_dev.php/')
-        cy.login({_username: 'root', _password: 'voo6Sheb'})
-    })
+        cy.visit(mainUrl);
+        cy.login({_username: user, _password: password});
+    });
 
-
-    // const myUrl = "https://dbimmaps-eu.lsg-test.comp.db.de/mapserv?map=%2Fvar%2Fapp%2Fdbimmaps%2Fmapserver%2Ffachdaten_db.map&application=Flaecheninformation_DB_AG_CYPRESS&dbimm_key=3098&_signature=39%3ACepGnLnqdTsxc2jFbISKWhl0Yhc&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=TRUE&LAYERS=fahrradparkhaus%2Cleitungsmaste%2Cstreckenreaktivierung_09_in_betrieb%2Cstreckenreaktivierung_09_in_betrieb_buffer%2Cstreckenreaktivierung_08_im_bau%2Cstreckenreaktivierung_08_im_bau_buffer%2Cstreckenreaktivierung_07_lph_5_7%2Cstreckenreaktivierung_07_lph_5_7_buffer%2Cstreckenreaktivierung_06_lph_3_4%2Cstreckenreaktivierung_06_lph_3_4_buffer%2Cstreckenreaktivierung_05_lph_1_2%2Cstreckenreaktivierung_05_lph_1_2_buffer%2Cstreckenreaktivierung_04_minus_neg_ergebnis%2Cstreckenreaktivierung_04_minus_neg_ergebnis_buffer%2Cstreckenreaktivierung_04_plus_nkv%2Cstreckenreaktivierung_04_plus_nkv_buffer%2Cstreckenreaktivierung_04_nku%2Cstreckenreaktivierung_04_nku_buffer%2Cstreckenreaktivierung_03_machbarkeitsstudie_positiv%2Cstreckenreaktivierung_03_machbarkeitsstudie_positiv_buffer%2Cstreckenreaktivierung_03_machbarkeitsstudie%2Cstreckenreaktivierung_03_machbarkeitsstudie_buffer%2Cstreckenreaktivierung_02_potenzialstudie%2Cstreckenreaktivierung_02_potenzialstudie_buffer%2Cstreckenreaktivierung_01_projektidee%2Cstreckenreaktivierung_01_projektidee_buffer%2Cwirkraeume_17%2Cwirkraeume_18%2Cwirkraeume_19%2Cwirkraeume_20%2Cengpassbeseitigung_projekte%2Claermschutz%2Cnetzkonzeption_2040_ma%2Cnetzkonzeption_2040_ha20%2Cnetzkonzeption_2040_ha%2Cnetzkonzeption_2040_haplus20%2Cnetzkonzeption_2040_haplus%2Cubhf%2Cbrueckensanierung%2Cengpassbeseitigung_knoten%2Cvordrbedarf_vor_17_line%2Cvordrbedarf_vor_17_1000%2Cvordrbedarf_vor_17_5000%2Cvordrbedarf_17_line%2Cvordrbedarf_17_1000%2Cvordrbedarf_17_5000%2Cvordrbedarf_18_line%2Cvordrbedarf_18_1000%2Cvordrbedarf_18_5000%2Cvordrbedarf_19_line%2Cvordrbedarf_19_1000%2Cvordrbedarf_19_5000%2Cvordrbedarf_20_line%2Cvordrbedarf_20_1000%2Cvordrbedarf_20_5000%2Cvordrbedarf_22_line%2Cvordrbedarf_22_1000%2Cvordrbedarf_22_5000%2Clogistik_fachdaten%2Cflaechenreservierung%2Cmobilfunk%2Cvfkf_info%2Cstandort_info&STYLES=%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C&_OLSALT=0.6882501127401324&CRS=EPSG%3A25832&WIDTH=1346&HEIGHT=1236&BBOX=459943.19683007465%2C5518776.591767311%2C531169.1726153595%2C5584181.722577572";
-    const myUrl = 'http://localhost/mapbender_bahn/app_dev.php/application/Flaecheninformation_DB_AG_CYPRESS?#150000@8.52417/50.18313r0@EPSG:25832';
-    it('Test', () => {
-
-        // Muss überarbeitet werden. Layer in Cypress.env ???
+    const myUrl = mainUrl + 'application/' + myAppSlug; // + '?#150000@8.52417/50.18313r0@EPSG:25832';
+    it('Test Ruler', () => {
+        cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
-        // Eventuelle SQL Fehlermeldung wegklickien.
-        cy.get('body').then($body =>{
-            if($body.find('.notifyjs-corner').length > 0){
-                cy.get('.notifyjs-corner').click()
-            }
-        })
+        // activate the ruler
+        cy.contains('Linien-/Flächen').click();
 
+        // line test
+        cy.get('input[data-test="mb-ruler-rb-line"]').click();
+        cy.get('canvas').then(($canvas) => {
+            const width = $canvas.width();
+            const height = $canvas.height();
+            const x = Math.floor(width / 2 );
+            const y = Math.floor(height / 2 );
+            cy.wrap($canvas).click(x,y);
+            cy.wrap($canvas).click(x,y + 100);
+            cy.wrap($canvas).click(x + 100,y + 100);
+            cy.wrap($canvas).click(x + 100,y );
+            cy.wrap($canvas).dblclick(x,y);
+        });
+        cy.wait(2000);
+        // area test
+        cy.get('input[data-test="mb-ruler-rb-area"]').click();
+        cy.get('canvas').then(($canvas) => {
+            const width = $canvas.width();
+            const height = $canvas.height();
+            const x = Math.floor(width / 2 );
+            const y = Math.floor(height / 2 );
+            cy.wrap($canvas).click(x,y);
+            cy.wrap($canvas).click(x,y + 100);
+            cy.wrap($canvas).click(x + 100,y + 100);
+            cy.wrap($canvas).click(x + 100,y );
+            cy.wrap($canvas).click(x,y);
+            cy.wait(2000);
+            cy.wrap($canvas).dblclick(x,y);
 
-        // Select Flächenmessung.
-        cy.get(`[title="Fläche messen"]`).click()
-
-        // Angenommen, 'map' ist eine Referenz auf dein OpenLayers Map-Objekt
-        //const map = Mapbender.Model.mbMap.map.olMap;
-       // const map = window.Mapbender.Model.mbMap.getModel().olMap
-/*
-
-        // Koordinaten des Punktes, den du ansteuern möchtest
-        // 469082.77 5548372.36
-        const lon = -123.3656;  
-        const lat = 48.4284;
-
-        // get Map
-        const view = Mapbender.Model.olMap.getView();
-        const mapCoords = ol.proj.fromLonLat([lon, lat], view.getProjection());
-        const pixel = map.getPixelFromCoordinate(mapCoords);
-
-        // Simuliere einen Klick auf die berechneten Pixel-Koordinaten
-        cy.get('.ol-viewport').click(pixel[0], pixel[1]);
-*/
-
-        //cy.contains('Exportieren').click()
-        //cy.wait(2000)
-        //cy.get('button.popupClose').last().click()
-
-
+        });
+        cy.deleteApplication({ _slug: myAppSlug });
     })
-
 })
