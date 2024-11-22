@@ -11,8 +11,6 @@ describe('Test Fläche messen', () => {
 
         // Muss überarbeitet werden. Layer in Cypress.env ???
         cy.visit(myUrl);
-        // Willkommens Info wegklicken
-        cy.contains('OK, ich habe verstanden').click()
 
         // Eventuelle SQL Fehlermeldung wegklickien.
         cy.get('body').then($body =>{
