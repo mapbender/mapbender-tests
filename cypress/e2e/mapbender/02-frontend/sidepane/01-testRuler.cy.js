@@ -11,24 +11,13 @@ describe('Test Ruler', () => {
         cy.login({_username: user, _password: password});
     });
 
-    const myUrl = mainUrl + 'application/' + myAppSlug;
-    // create selector for ruler
-    const mbSelector = 'div.accordion-cell div.mb-element-ruler';
+    const myUrl = mainUrl + 'application/' + myAppSlug; // + '?#150000@8.52417/50.18313r0@EPSG:25832';
     it('Test Ruler', () => {
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
         // activate the ruler
-        //cy.contains('Linien-/Flächen').click();
-        cy.get('div.container-accordion').each(($container, index) =>{
-            const $mbElement = $container.find(mbSelector);
-            if($mbElement.length > 0 ){
-                const cssClass = $mbElement.attr('class');
-                cy.CyLog('>>>>>>>>', `Container ${index + 1} hat Mapbender-Klasse: ${cssClass}`)
-                cy.get(`div#accordion${index + 1}`).click();
-            }
-        })
-
+        cy.contains('Linien-/Flächen').click();
 
         // line test
         cy.get('input[data-test="mb-ruler-rb-line"]').click();
