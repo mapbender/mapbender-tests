@@ -1,10 +1,10 @@
 //
 // cy.checkLayerTree({ _layerNodeName: 'Fachdaten (DB)' })
-Cypress.Commands.add('checkLayerTree', ({_layerNodeName: layerNodeName}) => {
+Cypress.Commands.add('checkLayerTree', ({_layerNodeTitle: layerNodeTitle}) => {
 
-    cy.CyLog('LayerNodeName', layerNodeName)
+    cy.CyLog('LayerTree Check: ', layerNodeTitle)
 
-    cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
+    cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
         .siblings(`[title="öffnen/schließen"]`)
         .then($el => {
 
@@ -12,106 +12,102 @@ Cypress.Commands.add('checkLayerTree', ({_layerNodeName: layerNodeName}) => {
             cy.CyLog('LOG: Layerknoten','open')
         }else {
             cy.CyLog('LOG: ', 'Layerknoten closed')
-            cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
+            cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
                 .siblings(`[title="öffnen/schließen"]`)
                 .click();
         }
     })
 
-    cy.activateLayer({_layerNodeName: layerNodeName})
+    cy.activateLayer({_layerNodeTitle: layerNodeTitle})
 
 })
 
-// cy.layerNodeRecursion({ _layerNodeName: 'Fachdaten (DB)' })
-Cypress.Commands.add('layerNodeRecursion', ({_layerNodeName: layerNodeName}) => {
+// cy.layerNodeRecursion({ _layerNodeTitle: 'Fachdaten (DB)' })
+Cypress.Commands.add('layerNodeRecursion', ({_layerNodeTitle: layerNodeTitle}) => {
 
-    //cy.CyLog('dev',  'layerNodeRecursion Layer: ' + layerNodeName)
-    cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-        .then($elem =>{
+    cy.get('span.layer-title[title="'+layerNodeTitle+'"]').then(($elem) => {
 
-            const hasClass = $elem.parent().siblings('ul.layers').length > 0
-
-            if (hasClass){
-                $elem.parent()
+            if ($elem.parent().siblings('ul.layers').length > 0){
+                cy.showLayerTree({_layerNodeTitle: layerNodeTitle});
+                cy.wrap($elem)
+                    .parent()
                     .siblings('ul.layers')
                     .find('span.layer-title')
-                    .then($underElem =>{
-                        const z = $underElem.length
-                        cy.CyLog('dev',"Anzahl Unterlayer: " + z);
-                        for(let i = 0; i < z; i++){
-
+                    .then($subElem =>{
+                        cy.CyLog('Test Layer',"Count Sublayer: " + $subElem.length);
+                        for(let i = 0; i < $subElem.length; i++){
+                            cy.CyLog('######', 'span Title: ' + $subElem[i].title);
+                            //cy.CyLog('<<<<<<', 'Unterlayer nummmmber: ' + (i + 1));
+                            cy.layerNodeRecursion({_layerNodeTitle: $subElem[i].title});
                         }
-                })
-
-                cy.CyLog('DEV', 'Hat Unterlayer!!')
-            }else {
-                cy.CyLog('DEV', 'Hat KEINE Unterlayer!!')
+                });
+                // cy.CyLog('DEV', 'Hat Unterlayer!!');
             }
+            // else
+            // {
+            //     cy.CyLog('DEV', 'Hat KEINE Unterlayer!!');
+            // }
     })
 })
 
-Cypress.Commands.add('showLayerTree', ({_layerNodeName: layerNodeName}) => {
-
-    cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-        .siblings(`[title="öffnen/schließen"]`)
+Cypress.Commands.add('showLayerTree', ({_layerNodeTitle: layerNodeTitle}) => {
+    cy.CyLog('Test LayerTree show: ',  layerNodeTitle);
+    cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+        .siblings(`span[data-test="mb-lt-layer-folder-icon"]`)
         .then($el =>{
 
             // class active: Layer is shown allready; class disabled-placeholder: No dependent layers
-            if(!$el.hasClass('active') && !$el.hasClass('disabled-placeholder')) {
-
-                cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-                    .siblings(`[title="öffnen/schließen"]`)
+            if($el.children('i').hasClass('fa-folder')) {
+                cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+                    .siblings(`span[data-test="mb-lt-layer-folder-icon"]`)
                     .click()
-                //cy.CyLog('LOG:',  'Layernode open (' + layerNodeName + ')')
             }
     })
 })
 
-Cypress.Commands.add('hideLayerTree', ({_layerNodeName: layerNodeName}) => {
-    cy.CyLog('TEST', 'call hideLayerTree with layerNodeName: ' + layerNodeName)
+Cypress.Commands.add('hideLayerTree', ({_layerNodeTitle: layerNodeTitle}) => {
+    cy.CyLog('Test LayerTree hide: ',  layerNodeTitle);
+    //cy.CyLog('TEST', 'call hideLayerTree with layerNodeTitle: ' + layerNodeTitle)
 
-    cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-        .siblings(`[title="öffnen/schließen"]`)
+    cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+        .siblings(`span[data-test="mb-lt-layer-folder-icon"]`)
         .then($el =>{
 
             if($el.children('i').hasClass('fa-folder-open')) {
 
-                cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-                    .siblings(`[title="öffnen/schließen"]`)
-                    .click()
-                //cy.CyLog('LOG:',  'Layernode close (' + layerNodeName + ')')
+                cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+                    .siblings(`span[data-test="mb-lt-layer-folder-icon"]`)
+                    .click();
             }
-    })
-})
+    });
+});
 
-Cypress.Commands.add('activateLayer', ({_layerNodeName: layerNodeName}) => {
-
-    cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-        .siblings(`[title="Sichtbarkeit an/aus"]`)
+Cypress.Commands.add('activateLayer', ({_layerNodeTitle: layerNodeTitle}) => {
+    cy.CyLog('Test LayerTree activate: ',  layerNodeTitle);
+    cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+        .siblings(`span[data-test="mb-lt-layer-visibility"]`)
         .then($el =>{
 
             if(!$el.hasClass('active')) {
 
-                cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-                    .siblings(`[title="Sichtbarkeit an/aus"]`)
+                cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+                    .siblings(`span[data-test="mb-lt-layer-visibility"]`)
                     .click()
-                //cy.CyLog('LOG:', 'Layernode activated (' + layerNodeName + ')')
             }
     })
 })
 
-Cypress.Commands.add('deactivateLayer', ({_layerNodeName: layerNodeName}) => {
-
-    cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-        .siblings(`[title="Sichtbarkeit an/aus"]`)
+Cypress.Commands.add('deactivateLayer', ({_layerNodeTitle: layerNodeTitle}) => {
+    cy.CyLog('Test LayerTree deactivate: ',  layerNodeTitle);
+    cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+        .siblings(`span[data-test="mb-lt-layer-visibility"]`)
         .then($el =>{
 
             if($el.hasClass('active')) {
 
-                cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-                    .siblings(`[title="Sichtbarkeit an/aus"]`)
+                cy.get('.mb-element-layertree [title="'+layerNodeTitle+'"]')
+                    .siblings(`span[data-test="mb-lt-layer-visibility"]`)
                     .click()
-                //cy.CyLog('LOG:', 'Layernode deactivated (' + layerNodeName + ')')
             }
     })
 })

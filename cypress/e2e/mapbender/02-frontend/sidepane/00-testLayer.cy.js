@@ -1,53 +1,33 @@
 describe('Test layer', () => {
+    const myApp = Cypress.env('application');
+    const myAppTitle = myApp['title'];
+    const myAppSlug = myApp['slug'];
+    const user = myApp['user'];
+    const password = myApp['password'];
+    const mainUrl = myApp['mainUrl'];
+
     beforeEach(() => {
-        cy.visit('http://http://localhost/mapbender4/user/login')
-        cy.login({_username: 'root', _password: 'root'})
-    })
+        cy.visit(mainUrl);
+        cy.login({_username: user, _password: password});
+    });
 
-
-    // const myUrl = "https://dbimmaps-eu.lsg-test.comp.db.de/mapserv?map=%2Fvar%2Fapp%2Fdbimmaps%2Fmapserver%2Ffachdaten_db.map&application=Flaecheninformation_DB_AG_CYPRESS&dbimm_key=3098&_signature=39%3ACepGnLnqdTsxc2jFbISKWhl0Yhc&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=TRUE&LAYERS=fahrradparkhaus%2Cleitungsmaste%2Cstreckenreaktivierung_09_in_betrieb%2Cstreckenreaktivierung_09_in_betrieb_buffer%2Cstreckenreaktivierung_08_im_bau%2Cstreckenreaktivierung_08_im_bau_buffer%2Cstreckenreaktivierung_07_lph_5_7%2Cstreckenreaktivierung_07_lph_5_7_buffer%2Cstreckenreaktivierung_06_lph_3_4%2Cstreckenreaktivierung_06_lph_3_4_buffer%2Cstreckenreaktivierung_05_lph_1_2%2Cstreckenreaktivierung_05_lph_1_2_buffer%2Cstreckenreaktivierung_04_minus_neg_ergebnis%2Cstreckenreaktivierung_04_minus_neg_ergebnis_buffer%2Cstreckenreaktivierung_04_plus_nkv%2Cstreckenreaktivierung_04_plus_nkv_buffer%2Cstreckenreaktivierung_04_nku%2Cstreckenreaktivierung_04_nku_buffer%2Cstreckenreaktivierung_03_machbarkeitsstudie_positiv%2Cstreckenreaktivierung_03_machbarkeitsstudie_positiv_buffer%2Cstreckenreaktivierung_03_machbarkeitsstudie%2Cstreckenreaktivierung_03_machbarkeitsstudie_buffer%2Cstreckenreaktivierung_02_potenzialstudie%2Cstreckenreaktivierung_02_potenzialstudie_buffer%2Cstreckenreaktivierung_01_projektidee%2Cstreckenreaktivierung_01_projektidee_buffer%2Cwirkraeume_17%2Cwirkraeume_18%2Cwirkraeume_19%2Cwirkraeume_20%2Cengpassbeseitigung_projekte%2Claermschutz%2Cnetzkonzeption_2040_ma%2Cnetzkonzeption_2040_ha20%2Cnetzkonzeption_2040_ha%2Cnetzkonzeption_2040_haplus20%2Cnetzkonzeption_2040_haplus%2Cubhf%2Cbrueckensanierung%2Cengpassbeseitigung_knoten%2Cvordrbedarf_vor_17_line%2Cvordrbedarf_vor_17_1000%2Cvordrbedarf_vor_17_5000%2Cvordrbedarf_17_line%2Cvordrbedarf_17_1000%2Cvordrbedarf_17_5000%2Cvordrbedarf_18_line%2Cvordrbedarf_18_1000%2Cvordrbedarf_18_5000%2Cvordrbedarf_19_line%2Cvordrbedarf_19_1000%2Cvordrbedarf_19_5000%2Cvordrbedarf_20_line%2Cvordrbedarf_20_1000%2Cvordrbedarf_20_5000%2Cvordrbedarf_22_line%2Cvordrbedarf_22_1000%2Cvordrbedarf_22_5000%2Clogistik_fachdaten%2Cflaechenreservierung%2Cmobilfunk%2Cvfkf_info%2Cstandort_info&STYLES=%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C&_OLSALT=0.6882501127401324&CRS=EPSG%3A25832&WIDTH=1346&HEIGHT=1236&BBOX=459943.19683007465%2C5518776.591767311%2C531169.1726153595%2C5584181.722577572";
-    const myUrl = 'http://localhost/mapbender4/index.php/application/Mapbender_Demo_CYPRESS?#150000@8.52417/50.18313r0@EPSG:25832';
-    it('Test', () => {
-
-        // Muss überarbeitet werden. Layer in Cypress.env ???
-        const myApp = Cypress.env('application');
-        const myAppName = myApp['cypress'];
-        const myLayer = myAppName['layer'];
-        //const myLayer = Cypress.env('application')['dbag']['layer']
-        let z = Object.keys(myLayer).length;
-        cy.CyLog("DEV:", "Anzahl LayerNodes in config: " + z);
-
-
-
-
-        //cy.intercept(myUrl).as('FachDB');
+    const myUrl = mainUrl + 'application/' + myAppSlug;
+    // create selector for layertree
+    const mbSelector = 'div.accordion-cell div.mb-element-layertree';
+    it('Test LayerTree', () => {
+        cy.CyLog("Test Layertree", "Start");
+        //cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
-        // Willkommens Info wegklicken
-        cy.contains('OK, ich habe verstanden').click()
 
-        // Eventuelle SQL Fehlermeldung wegklicken.
-        cy.get('body').then($body =>{
-            if($body.find('.notifyjs-corner').length > 0){
-                cy.get('.notifyjs-corner').click()
+        // activate Layertree.
+        cy.get('div.container-accordion').each(($container, index) =>{
+            const $mbElement = $container.find(mbSelector);
+            if($mbElement.length > 0 ){
+                const cssClass = $mbElement.attr('class');
+                cy.CyLog('Test Layertree', `sidepane class to activate: ${cssClass}`)
+                cy.get(`div#accordion${index + 1}`).click();
             }
         })
-
-        // Layertree anschalten.
-        cy.get(`[title="Layerbaum"]`).click()
-
-/*
-        // Alle Layer-Titel auslesen und anzeigen
-        cy.get('.mb-element-layertree .layer-title')
-            .then($layers =>{
-                for (let i = 0; i < $layers.length; i++){
-                    //if ($layers[i].sib)
-                    cy.CyLog('DEV','Layer Name: ' + $layers[i].title)
-                    cy.showLayerTree({_layerNodeName: $layers[i].title})
-                    cy.deactivateLayer({_layerNodeName: $layers[i].title})
-                    //cy.activateLayer({_layerNodeName: $layers[i].title})
-                }
-        })
-*/
 
         /**
          * Alle Hauptlayer Nodes auslesen und verarbeiten
@@ -57,15 +37,21 @@ describe('Test layer', () => {
             .children('div.leaveContainer')
             .children('span.layer-title')
             .then($elems =>{
-                //const z = Object.keys($elems).length
-                z = $elems.length
-                for(let i = 0; i < z; i++){
-                    cy.CyLog('DEV', 'Layer Name: ' + $elems[i].title)
-                    cy.layerNodeRecursion({_layerNodeName: $elems[i].title})
+                for(let i = 0; i < $elems.length; i++){
+                    cy.CyLog('Test Layertree: ', 'Test layer name: ' + $elems[i].title);
 
+                    cy.showLayerTree({_layerNodeTitle: $elems[i].title});
+                    cy.deactivateLayer({_layerNodeTitle: $elems[i].title});
+                    cy.wait(1000);
+                    cy.activateLayer({_layerNodeTitle: $elems[i].title});
+                    cy.wait(1000);
+                    cy.layerNodeRecursion({_layerNodeTitle: $elems[i].title});
+                    cy.hideLayerTree({_layerNodeTitle: $elems[i].title});
                 }
-        })
+            })
 
+        //cy.deleteApplication({ _slug: myAppSlug });
+        cy.CyLog("Test Layertree", "End");
     })
 
 })
