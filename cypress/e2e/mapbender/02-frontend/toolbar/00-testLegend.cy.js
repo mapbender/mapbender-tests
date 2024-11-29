@@ -12,38 +12,44 @@ describe('Test Legend', () => {
     });
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
+    // create selector for layertree (layers must be activated for legend)
+    const mbSelector = 'div.accordion-cell div.mb-element-layertree';
     it('Test', () => {
-        //cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
+        cy.CyLog("Test Legend", "Start");
+        cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
-        // Erst layer an/aus schalten damit ein neuer Request erzeugt wird.
-        const layerNodeName = 'Fachdaten (DB)'
-        // Layertree anschalten.
-        cy.get(`[title="Layerbaum"]`).click()
-        // Layer Node anzeigen
-        cy.showLayerTree({_layerNodeName: layerNodeName})
-        // Layer Node ein/ausschalten
-        cy.get('.mb-element-layertree [title="'+layerNodeName+'"]')
-            .siblings(`[title="Sichtbarkeit an/aus"]`)
-            .then($el =>{
-                    cy.get('.mb-element-layertree [title="'+layerNodeName+'"]').siblings(`[title="Sichtbarkeit an/aus"]`).click()
+        // activate Layertree.
+        cy.get('div.container-accordion').each(($container, index) =>{
+            const $mbElement = $container.find(mbSelector);
+            if($mbElement.length > 0 ){
+                const cssClass = $mbElement.attr('class');
+                cy.CyLog('Test Layertree', `sidepane class to activate: ${cssClass}`)
+                cy.get(`div#accordion${index + 1}`).click();
+            }
+        })
 
+        /**
+         * Alle Hauptlayer Nodes auslesen und verarbeiten
+         * elements: Array mit Layer Node Namen
+         */
+        cy.get('li.serviceContainer')
+            .children('div.leaveContainer')
+            .children('span.layer-title')
+            .then($elems =>{
+                for(let i = 0; i < $elems.length; i++){
+                    cy.CyLog('Test Layertree: ', 'Test layer name: ' + $elems[i].title);
+                    cy.showLayerTree({_layerNodeTitle: $elems[i].title});
+                    cy.activateLayer({_layerNodeTitle: $elems[i].title});
+                }
             })
-
-        /*cy.stub('open', (request) => {
-            const url = request.url
-            const method = request.method
-            const headers = request.headers
-            cy.CyLog('DEV', 'url: ' + url)
-            cy.CyLog('DEV', 'method: ' + method)
-            cy.CyLog('DEV', 'headers: ' + headers)
-        })*/
-
         // Legende anschalten.
-        cy.get(`[title="Legende"]`).click()
+        //cy.get('li[title="Legend"]').click();
+        cy.get('span.iconBig > i.fa-th-list').parent().click();
+        cy.wait(2000);
+        cy.get('div.legend-dialog > div.popupButtons > button.popupClose').click();
 
-
-        //cy.deleteApplication({ _slug: myAppSlug });
+        cy.deleteApplication({ _slug: myAppSlug });
+        cy.CyLog("Test Legend", "End");
     })
-
 })
