@@ -15,6 +15,7 @@ describe('Test Ruler', () => {
     // create selector for ruler
     const mbSelector = 'div.accordion-cell div.mb-element-ruler';
     it('Test Ruler', () => {
+        cy.CyLog("Test Ruler", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
@@ -59,5 +60,6 @@ describe('Test Ruler', () => {
 
         });
         cy.deleteApplication({ _slug: myAppSlug });
+        cy.CyLog("Test Ruler", "End");
     })
 })
