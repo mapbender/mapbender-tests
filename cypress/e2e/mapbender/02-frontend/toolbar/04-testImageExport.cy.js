@@ -13,6 +13,7 @@ describe('Test Bildexport', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug + '?#150000@8.52417/50.18313r0@EPSG:25832';
     it('Test', () => {
+        cy.CyLog("Test Image Export", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
 
         cy.visit(myUrl);
@@ -26,6 +27,7 @@ describe('Test Bildexport', () => {
         cy.get('button.popupClose').last().click()
 
         cy.deleteApplication({ _slug: myAppSlug });
+        cy.CyLog("Test Image Export", "End");
     })
 
 })
