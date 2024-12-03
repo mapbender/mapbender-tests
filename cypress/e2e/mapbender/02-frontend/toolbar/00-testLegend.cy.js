@@ -14,7 +14,7 @@ describe('Test Legend', () => {
     const myUrl = mainUrl + 'application/' + myAppSlug;
     // create selector for layertree (layers must be activated for legend)
     const mbSelector = 'div.accordion-cell div.mb-element-layertree';
-    it('Test', () => {
+    it('Test Legend', () => {
         cy.CyLog("Test Legend", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
@@ -30,7 +30,7 @@ describe('Test Legend', () => {
         })
 
         /**
-         * Alle Hauptlayer Nodes auslesen und verarbeiten
+         * Alle Hauptlayer Nodes auslesen und aktivieren
          * elements: Array mit Layer Node Namen
          */
         cy.get('li.serviceContainer')
@@ -44,10 +44,9 @@ describe('Test Legend', () => {
                 }
             })
         // Legende anschalten.
-        //cy.get('li[title="Legend"]').click();
         cy.get('span.iconBig > i.fa-th-list').parent().click();
         cy.wait(2000);
-        cy.get('div.legend-dialog > div.popupButtons > button.popupClose').click();
+        cy.get('div.legend-dialog').find('button[data-test="mb-legend-btn-close"]').click();
 
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Legend", "End");
