@@ -16,7 +16,7 @@ describe('Test layer', () => {
     const mbSelector = 'div.accordion-cell div.mb-element-layertree';
     it('Test LayerTree', () => {
         cy.CyLog("Test Layertree", "Start");
-        //cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
+        cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
         // activate Layertree.
@@ -50,7 +50,7 @@ describe('Test layer', () => {
                 }
             })
 
-        //cy.deleteApplication({ _slug: myAppSlug });
+        cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Layertree", "End");
     })
 
