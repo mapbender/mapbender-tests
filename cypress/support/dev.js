@@ -1,10 +1,5 @@
 Cypress.Commands.add('CyLog', (key, value) => {
-    // Turn off logging of the cy.window() to command log
-    cy.window({ log: false }).then((window) => {
-        window.sessionStorage.setItem(key, value)
-    })
-
-    const log = Cypress.log({
+    Cypress.log({
         name: 'CyLog',
         // shorter name for the Command Log
         displayName: 'CyLog',
@@ -18,5 +13,14 @@ Cypress.Commands.add('CyLog', (key, value) => {
                 'Session Storage': window.sessionStorage,
             }
         },
-    })
-})
+    });
+});
+
+
+Cypress.Commands.add('CyLogSessionStorage', (key, value) => {
+    // Turn off logging of the cy.window() to command log
+    cy.window({ log: false }).then((window) => {
+        window.sessionStorage.setItem(key, value)
+    });
+
+});
