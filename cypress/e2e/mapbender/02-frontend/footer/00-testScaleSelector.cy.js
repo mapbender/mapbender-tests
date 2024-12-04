@@ -17,7 +17,7 @@ describe('Test POI', () => {
     const scaleLiArray = ['500','1000','2500','5000','7500','10000','25000','500000','50000000','25000'];
     it('Test POI', () => {
         cy.CyLog("Test POI", "Start");
-//        cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
+        cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.viewport(1200, 800);
         cy.visit(myUrl);
 
@@ -36,7 +36,7 @@ describe('Test POI', () => {
             cy.wait(waitLong);
         });
 
-//        cy.deleteApplication({ _slug: myAppSlug });
+        cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test POI", "End");
     })
 })
