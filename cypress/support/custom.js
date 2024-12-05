@@ -39,7 +39,7 @@ Cypress.Commands.add('deleteApplication', (app) => {
 Cypress.Commands.add( 'addMapbenderUser', (newUser)=> {
     const url = Cypress.env('application')['mainUrl'];
     cy.visit(url + 'manager/security');
-    cy.get('[data-test="user-add"]').click();
+    cy.get('[data-test="mb-security-user-add"]').click();
     cy.get('[id="user_username"]')
         .type(newUser._username);
     cy.get('[id="user_email"]')
@@ -50,7 +50,7 @@ Cypress.Commands.add( 'addMapbenderUser', (newUser)=> {
         .type(newUser._password);
     //cy.get('[value="Speichern"]').click();
     cy.get('input[data-test="mb-submit"]').click();
-})
+});
 
 // delete User from Mapbender
 // cy.deleteMapbenderUser(10);
@@ -59,6 +59,32 @@ Cypress.Commands.add('deleteMapbenderUser', (userName) => {
     cy.visit(url + 'manager/security');
     cy.get('span[data-test="' + userName + '-user-delete"]').click();
     cy.get('button[data-test="mb-submit"]').click();
+})
 
+// add Group to Mapbender
+// cy.addMapbenderGroup({ _groupname: 'cypress'})
+Cypress.Commands.add( 'addMapbenderGroup', (newGroup, description)=> {
+    cy.CyLog('Test Add Group', 'Start');
+    const url = Cypress.env('application')['mainUrl'];
+    cy.visit(url + 'manager/security');
+
+    cy.get('a#tabGroups').click();
+    cy.get('[data-test="mb-security-group-add"]').click();
+    cy.get('[id="group_title"]')
+         .type(newGroup);
+    cy.get('[id="group_description"]')
+         .type(description);
+    cy.get('input[data-test="mb-submit"]').click();
+    cy.CyLog('Test Add Group', 'End');
+});
+
+// delete User from Mapbender
+// cy.deleteMapbenderGroup(group Title);
+Cypress.Commands.add('deleteMapbenderGroup', (groupTitle) => {
+    const url = Cypress.env('application')['mainUrl'];
+    cy.visit(url + 'manager/security');
+    cy.get('a#tabGroups').click();
+    cy.get('span[data-test="' + groupTitle + '-group-delete"]').click();
+    cy.get('button[data-test="mb-submit"]').click();
 })
 
