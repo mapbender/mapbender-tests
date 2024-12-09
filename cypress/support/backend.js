@@ -65,12 +65,35 @@ Cypress.Commands.add( 'addMapbenderGroup', (newGroup, description)=> {
 });
 
 // delete User from Mapbender
-// cy.deleteMapbenderGroup(group Title);
+// cy.deleteMapbenderGroup(groupTitle);
 Cypress.Commands.add('deleteMapbenderGroup', (groupTitle) => {
     const url = Cypress.env('application')['mainUrl'];
     cy.visit(url + 'manager/security');
     cy.get('a#tabGroups').click();
     cy.get('span[data-test="' + groupTitle + '-group-delete"]').click();
     cy.get('button[data-test="mb-submit"]').click();
-})
+});
 
+// Add DataSource
+// cy.addMapbenderSource(SourceTitle);
+Cypress.Commands.add('addMapbenderSource', (sourceTitle) => {
+    const url = Cypress.env('application')['mainUrl'];
+    cy.visit(url + 'manager/repository');
+    cy.get('a[data-test="mb-source-add"]').click();
+    cy.get('div.dropdownValue').click();
+    cy.get('li[data-value="wms"]').click();
+    cy.get('input#http_source_selection_originUrl').type(sourceTitle);
+    cy.get('input[type="submit"]').click();
+});
+
+// Delete first found Data Source
+// cy.deleteMapbenderSource(sourceTitle);
+Cypress.Commands.add('deleteMapbenderSource', (sourceTitle) => {
+    const url = Cypress.env('application')['mainUrl'];
+    cy.visit(url + 'manager/repository');
+
+    cy.get('a[data-test="mb-delete-source-' + sourceTitle + '"]').then($elem => {
+        cy.wrap($elem).first().click();
+        cy.get('button[data-test="mb-submit"]').click();
+    });
+});
