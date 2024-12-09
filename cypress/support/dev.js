@@ -1,3 +1,8 @@
+
+Cypress.Commands.add('mbLog', (message)=>{
+    cy.CyLog('Mapbender Test', message);
+})
+
 Cypress.Commands.add('CyLog', (key, value) => {
     Cypress.log({
         name: 'CyLog',
@@ -15,7 +20,6 @@ Cypress.Commands.add('CyLog', (key, value) => {
         },
     });
 });
-
 
 Cypress.Commands.add('CyLogSessionStorage', (key, value) => {
     // Turn off logging of the cy.window() to command log
