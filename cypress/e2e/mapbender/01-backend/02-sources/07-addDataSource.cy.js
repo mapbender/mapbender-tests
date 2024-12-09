@@ -13,15 +13,17 @@ describe('Add Data Source', () => {
     const waitLong= 2000;
     it('addDataSource', () => {
         cy.CyLog('Test add Data Source', 'Start');
-        const url = Cypress.env('application')['mainUrl'];
-        cy.visit(url + 'manager/repository');
-        cy.get('a[data-test="mb-source-add"]').click();
-        cy.get('div.dropdownValue').click();
-        cy.get('li[data-value="wms"]').click();
+        //cy.showBanner('Test add Data Source wird gestartet!');
+        cy.addMapbenderSource(dataSource);
 
-        cy.get('input#http_source_selection_originUrl').type(dataSource);
         cy.wait(waitLong);
-        cy.get('input[type="submit"]').click();
+        cy.get('a#tabApplications').click();
+        cy.wait(waitLong);
+        cy.get('a#tabContact').click();
+        cy.wait(waitLong);
+        cy.get('a#tabService').click();
+        cy.wait(waitLong);
+        cy.get('a#tabLayers').click();
         cy.wait(waitLong);
         cy.CyLog('Test add Data Source', 'End');
     });
