@@ -1,18 +1,4 @@
 
-// login
-// cy.login({ _username: 'root', _password: 'root' })
-Cypress.Commands.add('login', (benutzer) => {
-    const url = Cypress.env('application')['mainUrl'];
-    cy.visit(url);
-    cy.get('ul[data-test="login"] > li').click();
-    cy.get('input[name=_username]')
-        .type(benutzer._username);
-    cy.get('input[name=_password]')
-        .type(benutzer._password);
-    //cy.get('[type="submit"]').click();
-    cy.get('input[data-test="mb-submit"]').click();
-});
-
 // duplicate Mapbender Demo App
 // cy.copyApplication({ _title: 'Beispiel', _slug:'beispiel' })
 Cypress.Commands.add('copyApplication', (new_application) => {

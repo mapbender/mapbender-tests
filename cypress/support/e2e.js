@@ -15,7 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-import './custom'
+import './backend'
 import './layer'
 import './dev'
 
