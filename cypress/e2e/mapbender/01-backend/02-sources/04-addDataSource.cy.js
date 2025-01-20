@@ -13,7 +13,6 @@ describe('Add Data Source', () => {
     const waitLong= 2000;
     it('addDataSource', () => {
         cy.CyLog('Test add Data Source', 'Start');
-        //cy.showBanner('Test add Data Source wird gestartet!');
         cy.addMapbenderSource(dataSource);
 
         cy.wait(waitLong);
