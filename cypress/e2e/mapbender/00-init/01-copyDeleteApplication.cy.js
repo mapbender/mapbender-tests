@@ -1,4 +1,4 @@
-describe('copy_delete_application', () => {
+describe('copy and delete application', () => {
     const myApp = Cypress.env('application');
     const myAppTitle = myApp['title'];
     const myAppSlug = myApp['slug'];
