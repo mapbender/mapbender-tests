@@ -105,6 +105,8 @@ pnpm add --save-dev cypress
 ````
 npx cypress open
 ````
+Then select E2E Testing in the window that opens
+
 For more information please visit the official cypress documentation.  
 
 ### Official documentation
