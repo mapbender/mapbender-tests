@@ -20,7 +20,7 @@ describe('Test POI', () => {
         cy.visit(myUrl);
 
         // open POI
-        cy.get('span.iconBig > i.fa-thumbtack').parent().click();
+        cy.get('span[data-test="mb-iconPoi"]').click();
         // write POI Text
         cy.get('div.mb-poi-popup').find('textarea.form-control').type('{enter}Cypress Test POI!');
         // Create POI

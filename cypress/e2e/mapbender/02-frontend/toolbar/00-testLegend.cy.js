@@ -16,6 +16,7 @@ describe('Test Legend', () => {
     const mbSelector = 'div.accordion-cell div.mb-element-layertree';
     it('Test Legend', () => {
         cy.CyLog("Test Legend", "Start");
+        cy.showBanner("Legend test!")
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
@@ -44,7 +45,7 @@ describe('Test Legend', () => {
                 }
             })
         // Legende anschalten.
-        cy.get('span.iconBig > i.fa-th-list').parent().click();
+        cy.get('span[data-test="mb-iconLegend"]').click();
         cy.wait(2000);
         cy.get('div.legend-dialog').find('button[data-test="mb-legend-btn-close"]').click();
 

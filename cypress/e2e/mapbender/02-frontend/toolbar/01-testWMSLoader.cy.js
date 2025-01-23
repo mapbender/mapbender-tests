@@ -23,7 +23,7 @@ describe('Test WMS-Loader', () => {
 
         // test wms1
         // open wmsloader
-        cy.get('span.iconBig > i.fa-globe').parent().click();
+        cy.get('span[data-test="mb-iconWms"]').click();
 
         // add wms-link
         cy.get('div.mb-element-wmsloader')
@@ -37,7 +37,7 @@ describe('Test WMS-Loader', () => {
             .click();
 
         // test wms2
-        cy.get('span.iconBig > i.fa-globe').parent().click();
+        cy.get('span[data-test="mb-iconWms"]').click();
         cy.get('div.mb-element-wmsloader')
             .find('input[name="loadWmsUrl"]')
             .clear()

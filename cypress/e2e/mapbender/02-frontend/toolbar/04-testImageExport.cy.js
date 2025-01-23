@@ -19,7 +19,7 @@ describe('Test Bildexport', () => {
         cy.visit(myUrl);
 
         // Print menu select.
-        cy.get(`span > i.fa-camera`).click()
+        cy.get('span[data-test="mb-iconImageExport"]').click();
 
         cy.get('input[data-test="imageexport-btn-submit"]').click()
 

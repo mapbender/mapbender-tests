@@ -20,7 +20,7 @@ describe('Test print', () => {
         cy.visit(myUrl);
 
         // Open print menu.
-        cy.get('i.fa-print').click();
+        cy.get('span[data-test="mb-iconPrint"]').click();
 
         // Test the template choice
         cy.get('label.form-label[for="template"]')
