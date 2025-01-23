@@ -34,7 +34,6 @@ Cypress.Commands.add( 'addMapbenderUser', (newUser)=> {
         .type(newUser._password);
     cy.get('[id="user_password_second"]')
         .type(newUser._password);
-    //cy.get('[value="Speichern"]').click();
     cy.get('input[data-test="mb-submit"]').click();
 });
 
