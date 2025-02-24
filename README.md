@@ -102,8 +102,10 @@ pnpm add --save-dev cypress
 ```
 
 **Open Cypress**
+
+To open cypress, execute this command on the bash in the folder where cypress is located:
 ````
-npx cypress open
+user:/example/to/cypress/tests/for/mapbender/$ npx cypress open
 ````
 Then select E2E Testing in the window that opens
 
