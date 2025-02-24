@@ -27,7 +27,9 @@ describe('Test Ruler', () => {
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
-        // activate the ruler
+        // activate the sketches
+        cy.selectSidePaneElement( mbSelector );
+        /*
         cy.get('div.container-accordion').each(($container, index) =>{
             const $mbElement = $container.find(mbSelector);
             if($mbElement.length > 0 ){
@@ -36,7 +38,7 @@ describe('Test Ruler', () => {
                 cy.get(`div#accordion${index + 1}`).click();
             }
         })
-
+*/
         // test sketch point
         cy.get('button[data-tool-name="point"]').click();
 

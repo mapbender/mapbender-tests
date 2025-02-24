@@ -20,18 +20,11 @@ describe('Test layer', () => {
         cy.visit(myUrl);
 
         // activate Layertree.
-        cy.get('div.container-accordion').each(($container, index) =>{
-            const $mbElement = $container.find(mbSelector);
-            if($mbElement.length > 0 ){
-                const cssClass = $mbElement.attr('class');
-                cy.CyLog('Test Layertree', `sidepane class to activate: ${cssClass}`)
-                cy.get(`div#accordion${index + 1}`).click();
-            }
-        })
+        cy.selectSidePaneElement( mbSelector );
 
         /**
-         * Alle Hauptlayer Nodes auslesen und verarbeiten
-         * elements: Array mit Layer Node Namen
+         * Read and process all main layer nodes
+         * elements: Array with Layer Node Namen
          */
         cy.get('li.serviceContainer')
             .children('div.leaveContainer')
@@ -39,14 +32,14 @@ describe('Test layer', () => {
             .then($elems =>{
                 for(let i = 0; i < $elems.length; i++){
                     cy.CyLog('Test Layertree: ', 'Test layer name: ' + $elems[i].title);
+                    cy.showBanner('Test Layertree Node: ' + $elems[i].title);
 
-                    cy.showLayerTree({_layerNodeTitle: $elems[i].title});
+                    cy.showLayerNode({_layerNodeTitle: $elems[i].title});
                     cy.deactivateLayer({_layerNodeTitle: $elems[i].title});
-                    cy.wait(1000);
                     cy.activateLayer({_layerNodeTitle: $elems[i].title});
-                    cy.wait(1000);
-                    cy.layerNodeRecursion({_layerNodeTitle: $elems[i].title});
-                    cy.hideLayerTree({_layerNodeTitle: $elems[i].title});
+                    cy.showLayerNodes({_layerNodeTitle: $elems[i].title});
+                    cy.wait(2000);
+                    cy.hideLayerNode({_layerNodeTitle: $elems[i].title});
                 }
             })
 
