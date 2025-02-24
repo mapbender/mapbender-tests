@@ -31,8 +31,8 @@ describe('Test Legend', () => {
         })
 
         /**
-         * Alle Hauptlayer Nodes auslesen und aktivieren
-         * elements: Array mit Layer Node Namen
+         * Read and process all main layer nodes
+         * elements: Array with Layer Node Namen
          */
         cy.get('li.serviceContainer')
             .children('div.leaveContainer')
@@ -40,7 +40,7 @@ describe('Test Legend', () => {
             .then($elems =>{
                 for(let i = 0; i < $elems.length; i++){
                     cy.CyLog('Test Layertree: ', 'Test layer name: ' + $elems[i].title);
-                    cy.showLayerTree({_layerNodeTitle: $elems[i].title});
+                    cy.showLayerNode({_layerNodeTitle: $elems[i].title});
                     cy.activateLayer({_layerNodeTitle: $elems[i].title});
                 }
             })
