@@ -5,6 +5,8 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'http://localhost',
     experimentalRunAllSpecs: true,
+    viewportHeight: 800,
+    viewportWidth: 1280,
     // setupNodeEvents(on, config) {
     //   // implement node event listeners here
     // },
