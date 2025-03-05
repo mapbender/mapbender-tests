@@ -34,11 +34,10 @@ Cypress.Commands.add('login', (benutzer) => {
         .type(benutzer._username);
     cy.get('input[name=_password]')
         .type(benutzer._password);
-    //cy.get('[type="submit"]').click();
     cy.get('input[data-test="mb-submit"]').click();
 });
 
-Cypress.Commands.add('showBanner', (message, duration = 1000) => {
+Cypress.Commands.add('showBanner', (message, duration = 2000) => {
 
     cy.document().then((doc) => {
         // Prüfen, ob ein Banner bereits existiert
@@ -60,17 +59,16 @@ Cypress.Commands.add('showBanner', (message, duration = 1000) => {
             banner.style.zIndex = '9999';
             doc.body.appendChild(banner);
         }
-        // Nachricht aktualisieren
+        // Update message
         banner.innerText = message;
-        cy.wait(duration);
-        // Banner nach einer bestimmten Zeit entfernen (optional)
-        /*if (duration > 0) {
+        // Remove banner after a certain time (optional)
+        if (duration > 0) {
             setTimeout(() => {
                 if (banner) {
                     banner.remove();
                 }
             }, duration);
-        }*/
+        }
         cy.mbLog('Banner: ' + message);
     });
 });
