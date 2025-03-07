@@ -11,7 +11,7 @@ describe('check_backend_main_functions', () => {
         cy.login({_username: user, _password: password});
     });
 
-    it('Check backend functions', () => {
+    it('test check backend standard functions', () => {
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug });
 
         cy.visit(mainUrl);

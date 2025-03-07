@@ -14,7 +14,7 @@ describe('Test Legend', () => {
     const myUrl = mainUrl + 'application/' + myAppSlug;
     // create selector for layertree (layers must be activated for legend)
     const mbSelector = 'div.accordion-cell div.mb-element-layertree';
-    it('Test Legend', () => {
+    it('test map legend', () => {
         cy.CyLog("Test Legend", "Start");
         cy.showBanner("Legend test!")
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );

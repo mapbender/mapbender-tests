@@ -13,7 +13,7 @@ describe('add link to toolbar in layout', () => {
 
     const myAppUrl = mainUrl + 'application/' + myAppSlug;
     const waitLong= 2000;
-    it('deleteDataSource', () => {
+    it('test add link to toolbar', () => {
         cy.CyLog('test add link to toolbar in layout', 'Start');
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
 

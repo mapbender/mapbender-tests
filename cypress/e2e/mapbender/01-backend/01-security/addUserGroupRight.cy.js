@@ -19,7 +19,7 @@ describe('add user to group', () => {
 
     const myAppUrl = mainUrl + 'application/' + myAppSlug;
     const waitLong= 2000;
-    it('deleteDataSource', () => {
+    it('test add mapbender user to group', () => {
         cy.CyLog('test user to group', 'Start');
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(mainUrl);

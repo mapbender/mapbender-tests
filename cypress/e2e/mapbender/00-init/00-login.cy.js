@@ -7,7 +7,7 @@ describe('mapbender login to app', () => {
         cy.visit(mainUrl);
     });
 
-    it('login', () => {
+    it('test login to mapbender', () => {
         cy.login({_username: user, _password: password});
     });
 });

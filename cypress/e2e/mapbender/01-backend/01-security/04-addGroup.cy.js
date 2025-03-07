@@ -11,7 +11,7 @@ describe('create new user', () => {
         cy.login({_username: user, _password: password});
     });
 
-    it('addMapbenderGroup ', () => {
+    it('test add mapbender group ', () => {
         cy.addMapbenderGroup(mbGroup, mbGroupDescription);
     });
 

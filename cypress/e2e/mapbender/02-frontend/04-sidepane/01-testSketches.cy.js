@@ -21,7 +21,7 @@ describe('Test Ruler', () => {
     const btnYellow = 'button[data-color="#ffff33"]';
     const btnGreen = 'button[data-color="#00837e"]';
     const btnOrange = 'button[data-color="#ff7f00"]';
-    it('Test sketches', () => {
+    it('test sketches', () => {
         cy.CyLog("Test Sketches", "Start");
         // Create test application
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );

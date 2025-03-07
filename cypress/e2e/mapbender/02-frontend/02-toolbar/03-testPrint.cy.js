@@ -12,7 +12,7 @@ describe('Test print', () => {
     });
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
-    it('Test', () => {
+    it('test print', () => {
         cy.CyLog("Test Print", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         // Chance default ViewPort. Because the print button is not visible in smaller sizes

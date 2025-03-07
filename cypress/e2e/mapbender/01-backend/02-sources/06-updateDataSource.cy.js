@@ -11,7 +11,7 @@ describe('Update Data Source', () => {
 
     const dataSource = 'FOSS4G Conference Locations';
     const waitLong= 2000;
-    it('updateDataSource', () => {
+    it('test update data source', () => {
         cy.CyLog('Test update Data Source', 'Start');
         const url = Cypress.env('application')['mainUrl'];
         cy.visit(url + 'manager/repository');

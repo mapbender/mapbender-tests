@@ -15,7 +15,7 @@ describe('Test POI', () => {
     const waitLong = 1000;
     const waitShort = 200;
     const srsLiArray = ['EPSG:4326','EPSG:3857','EPSG:25832','EPSG:25833','EPSG:31466','EPSG:31467','EPSG:4326'];
-    it('Test POI', () => {
+    it('test Srs Selector', () => {
         cy.CyLog("Test Srs Selector", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.viewport(1200, 800);

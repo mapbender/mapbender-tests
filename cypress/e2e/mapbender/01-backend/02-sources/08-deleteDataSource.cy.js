@@ -11,7 +11,7 @@ describe('Delete Data Source', () => {
 
     const dataSourceTitle = 'WMS NW ALKIS';
     const waitLong= 2000;
-    it('deleteDataSource', () => {
+    it('test delete data source', () => {
         cy.CyLog('Test delete Data Source', 'Start');
         const url = Cypress.env('application')['mainUrl'];
         cy.visit(url + 'manager/repository');

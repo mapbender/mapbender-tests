@@ -11,7 +11,7 @@ describe('copy application', () => {
         cy.login({_username: user, _password: password});
     });
 
-    it('Copy Application', () => {
+    it('test copy application', () => {
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(mainUrl);
         cy.contains(myAppTitle).scrollIntoView({ offset: { top: -200, left:0 } });

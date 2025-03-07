@@ -13,7 +13,7 @@ describe('Test POI', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
     const waitLong = 2000;
-    it('Test POI', () => {
+    it('test POI', () => {
         cy.CyLog("Test POI", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.viewport(1200, 800);
