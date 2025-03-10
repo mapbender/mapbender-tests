@@ -35,6 +35,15 @@ Cypress.Commands.add('login', (benutzer) => {
     cy.get('input[name=_password]')
         .type(benutzer._password);
     cy.get('input[data-test="mb-submit"]').click();
+
+    cy.get('body').then($body => {
+        if( $body.find('[data-test="mb-login-box"]').length ){
+            cy.mbLog("Login failed");
+            throw new Error("Login failed!");
+        }else{
+            cy.mbLog("Login correct");
+        }
+    });
 });
 
 Cypress.Commands.add('showBanner', (message, duration = 2000) => {
