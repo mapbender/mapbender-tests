@@ -27,6 +27,7 @@
 // login
 // cy.login({ _username: 'root', _password: 'root' })
 Cypress.Commands.add('login', (benutzer) => {
+    cy.CyLog('call function login', 'start');
     const url = Cypress.env('application')['mainUrl'];
     cy.visit(url);
     cy.get('ul[data-test="login"] > li').click();
@@ -44,9 +45,11 @@ Cypress.Commands.add('login', (benutzer) => {
             cy.mbLog("Login correct");
         }
     });
+    cy.CyLog('call function login', 'stopp');
 });
 
 Cypress.Commands.add('showBanner', (message, duration = 2000) => {
+    cy.CyLog('call function showBanner', 'start');
 
     cy.document().then((doc) => {
         // Prüfen, ob ein Banner bereits existiert
@@ -80,13 +83,5 @@ Cypress.Commands.add('showBanner', (message, duration = 2000) => {
         }
         cy.mbLog('Banner: ' + message);
     });
+    cy.CyLog('call function showBanner', 'stopp');
 });
-
-// close Symfony Toolbar
-// cy.closeSymfonyToolbar()
-Cypress.Commands.add('closeSymfonyToolbar', (source) => {
-    cy.visit('/')
-    cy.get('[class="hide-button"]').click()
-})
-
-
