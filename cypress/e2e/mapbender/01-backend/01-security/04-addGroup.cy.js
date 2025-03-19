@@ -1,6 +1,7 @@
 const mbGroup = 'Cypress';
 const mbGroupDescription = 'This is the Cypress Test Group';
-describe('create new user', () => {
+describe('create new group', () => {
+
     const myApp = Cypress.env('application');
     const user = myApp['user'];
     const password = myApp['password'];
@@ -12,7 +13,8 @@ describe('create new user', () => {
     });
 
     it('test add mapbender group ', () => {
+        cy.CyLog("create new group", "Start");
         cy.addMapbenderGroup(mbGroup, mbGroupDescription);
+        cy.CyLog("create new group", "Stopp");
     });
-
 })
