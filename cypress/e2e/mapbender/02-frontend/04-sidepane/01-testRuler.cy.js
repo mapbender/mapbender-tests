@@ -24,7 +24,7 @@ describe('Test Ruler', () => {
 
         // line test
         cy.get('input[data-test="mb-ruler-rb-line"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 );
@@ -38,7 +38,7 @@ describe('Test Ruler', () => {
         cy.wait(2000);
         // area test
         cy.get('input[data-test="mb-ruler-rb-area"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 );

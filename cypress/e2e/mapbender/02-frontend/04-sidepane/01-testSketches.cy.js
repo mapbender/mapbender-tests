@@ -42,7 +42,7 @@ describe('Test Ruler', () => {
         // test sketch point
         cy.get('button[data-tool-name="point"]').click();
 
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 );
@@ -67,7 +67,7 @@ describe('Test Ruler', () => {
 
         // test sketch Line
         cy.get('button[data-tool-name="line"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) - 100;
@@ -92,7 +92,7 @@ describe('Test Ruler', () => {
 
         // test sketch polygon
         cy.get('button[data-tool-name="polygon"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) + 100;
@@ -116,7 +116,7 @@ describe('Test Ruler', () => {
 
         // test sketch rectangle
         cy.get('button[data-tool-name="rectangle"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) + 300;
@@ -131,7 +131,7 @@ describe('Test Ruler', () => {
 
         // test sketch circle
         cy.get('button[data-tool-name="circle"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) + 300;
