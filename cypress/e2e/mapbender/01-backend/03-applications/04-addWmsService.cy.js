@@ -20,7 +20,7 @@ describe('add wms service to layerset', () => {
         cy.CyLog('test add wms service layerset main', 'Start');
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
 
-        cy.addMapbenderSource(dataSource);
+        cy.addMapbenderSource(dataSource, 'manager/repository/new/wms');
 
         cy.visit(mainUrl);
         cy.get('[data-test="' + myAppSlug + '-edit"]').click();
