@@ -101,15 +101,15 @@ Cypress.Commands.add('deleteMapbenderGroup', (groupTitle) => {
 });
 
 // Add DataSource
-// cy.addMapbenderSource(SourceTitle);
-Cypress.Commands.add('addMapbenderSource', (sourceTitle) => {
+// cy.addMapbenderSource(sourceServiceURI);
+Cypress.Commands.add('addMapbenderSource', (sourceServiceURI, sourceLink) => {
     cy.CyLog('call function addMapbenderSource', 'start');
     const url = Cypress.env('application')['mainUrl'];
-    cy.visit(url + 'manager/repository');
-    cy.get('a[data-test="mb-source-add"]').click();
-    cy.get('div.dropdownValue').click();
-    cy.get('li[data-value="wms"]').click();
-    cy.get('input#http_source_selection_originUrl').type(sourceTitle);
+    //const inputID = (sourceLink.indexOf('vector_tiles') !== -1) ? 'http_source_selection_originUrl' : 'vector_tile_source_jsonUrl';
+    const inputID = (!sourceLink.includes('vector_tiles')) ? 'http_source_selection_originUrl' : 'vector_tile_source_jsonUrl';
+    cy.mbLog('Input ID: ' + inputID);
+    cy.visit(url + sourceLink);
+    cy.get('input#' + inputID).type(sourceServiceURI);
     cy.get('input[type="submit"]').click();
     cy.CyLog('call function addMapbenderSource', 'stopp');
 });
