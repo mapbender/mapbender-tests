@@ -13,14 +13,14 @@ describe('Test POI', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
     const waitLong = 2000;
-    it('Test POI', () => {
+    it('test POI', () => {
         cy.CyLog("Test POI", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.viewport(1200, 800);
         cy.visit(myUrl);
 
         // open POI
-        cy.get('span.iconBig > i.fa-thumbtack').parent().click();
+        cy.get('span[data-test="mb-iconPoi"]').click();
         // write POI Text
         cy.get('div.mb-poi-popup').find('textarea.form-control').type('{enter}Cypress Test POI!');
         // Create POI

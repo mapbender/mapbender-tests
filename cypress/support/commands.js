@@ -27,6 +27,7 @@
 // login
 // cy.login({ _username: 'root', _password: 'root' })
 Cypress.Commands.add('login', (benutzer) => {
+    cy.CyLog('call function login', 'start');
     const url = Cypress.env('application')['mainUrl'];
     cy.visit(url);
     cy.get('ul[data-test="login"] > li').click();
@@ -34,11 +35,21 @@ Cypress.Commands.add('login', (benutzer) => {
         .type(benutzer._username);
     cy.get('input[name=_password]')
         .type(benutzer._password);
-    //cy.get('[type="submit"]').click();
     cy.get('input[data-test="mb-submit"]').click();
+
+    cy.get('body').then($body => {
+        if( $body.find('[data-test="mb-login-box"]').length ){
+            cy.mbLog("Login failed");
+            throw new Error("Login failed!");
+        }else{
+            cy.mbLog("Login correct");
+        }
+    });
+    cy.CyLog('call function login', 'stopp');
 });
 
-Cypress.Commands.add('showBanner', (message, duration = 1000) => {
+Cypress.Commands.add('showBanner', (message, duration = 2000) => {
+    cy.CyLog('call function showBanner', 'start');
 
     cy.document().then((doc) => {
         // Prüfen, ob ein Banner bereits existiert
@@ -60,26 +71,17 @@ Cypress.Commands.add('showBanner', (message, duration = 1000) => {
             banner.style.zIndex = '9999';
             doc.body.appendChild(banner);
         }
-        // Nachricht aktualisieren
+        // Update message
         banner.innerText = message;
-        cy.wait(duration);
-        // Banner nach einer bestimmten Zeit entfernen (optional)
-        /*if (duration > 0) {
+        // Remove banner after a certain time (optional)
+        if (duration > 0) {
             setTimeout(() => {
                 if (banner) {
                     banner.remove();
                 }
             }, duration);
-        }*/
+        }
         cy.mbLog('Banner: ' + message);
     });
+    cy.CyLog('call function showBanner', 'stopp');
 });
-
-// close Symfony Toolbar
-// cy.closeSymfonyToolbar()
-Cypress.Commands.add('closeSymfonyToolbar', (source) => {
-    cy.visit('/')
-    cy.get('[class="hide-button"]').click()
-})
-
-

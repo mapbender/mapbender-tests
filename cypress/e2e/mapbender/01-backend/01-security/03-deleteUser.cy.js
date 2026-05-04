@@ -10,7 +10,7 @@ describe('delete Mapbender User', () => {
         cy.login({_username: user, _password: password});
     })
 
-    it('deleteMapbenderUser ', () => {
+    it('test delete mapbender user ', () => {
         cy.deleteMapbenderUser(userName);
     });
 

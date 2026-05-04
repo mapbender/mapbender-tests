@@ -15,7 +15,7 @@ describe('Test POI', () => {
     const waitLong = 1000;
     const waitShort = 200;
     const scaleLiArray = ['500','1000','2500','5000','7500','10000','25000','500000','50000000','25000'];
-    it('Test POI', () => {
+    it('test Scale Selector', () => {
         cy.CyLog("Test Scale Selector", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.viewport(1200, 800);

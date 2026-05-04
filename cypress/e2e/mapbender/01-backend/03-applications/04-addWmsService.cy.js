@@ -16,11 +16,11 @@ describe('add wms service to layerset', () => {
     const dataSourceTitle = ['WMS NW ALKIS', 'FOSS4G'];
     const waitLong= 2000;
     const waitShort = 500;
-    it('deleteDataSource', () => {
+    it('test add wms service', () => {
         cy.CyLog('test add wms service layerset main', 'Start');
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
 
-        cy.addMapbenderSource(dataSource);
+        cy.addMapbenderSource(dataSource, 'manager/repository/new/wms');
 
         cy.visit(mainUrl);
         cy.get('[data-test="' + myAppSlug + '-edit"]').click();

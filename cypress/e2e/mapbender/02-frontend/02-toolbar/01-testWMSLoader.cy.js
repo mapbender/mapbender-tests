@@ -15,7 +15,7 @@ describe('Test WMS-Loader', () => {
     const waitLong = 2000;
     const wms1 = 'https://www.wms.nrw.de/geobasis/wms_nw_tfis?REQUEST=GetCapabilities&SERVICE=WMS&VERSION=1.3.0'; // geoportal.nrw touristic informations
     const wms2 = 'https://www.wms.nrw.de/wms/kitas?REQUEST=GetCapabilities&SERVICE=WMS&VERSION=1.3.0'; // geoportal.nrw kindertagesstätten
-    it('Test WMS-Loader', () => {
+    it('test WMS loader', () => {
         cy.CyLog("Test WMS-Loader", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
@@ -23,7 +23,7 @@ describe('Test WMS-Loader', () => {
 
         // test wms1
         // open wmsloader
-        cy.get('span.iconBig > i.fa-globe').parent().click();
+        cy.get('span[data-test="mb-iconWms"]').click();
 
         // add wms-link
         cy.get('div.mb-element-wmsloader')
@@ -37,7 +37,7 @@ describe('Test WMS-Loader', () => {
             .click();
 
         // test wms2
-        cy.get('span.iconBig > i.fa-globe').parent().click();
+        cy.get('span[data-test="mb-iconWms"]').click();
         cy.get('div.mb-element-wmsloader')
             .find('input[name="loadWmsUrl"]')
             .clear()

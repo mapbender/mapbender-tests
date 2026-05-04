@@ -21,13 +21,15 @@ describe('Test Ruler', () => {
     const btnYellow = 'button[data-color="#ffff33"]';
     const btnGreen = 'button[data-color="#00837e"]';
     const btnOrange = 'button[data-color="#ff7f00"]';
-    it('Test sketches', () => {
+    it('test sketches', () => {
         cy.CyLog("Test Sketches", "Start");
         // Create test application
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
-        // activate the ruler
+        // activate the sketches
+        cy.selectSidePaneElement( mbSelector );
+        /*
         cy.get('div.container-accordion').each(($container, index) =>{
             const $mbElement = $container.find(mbSelector);
             if($mbElement.length > 0 ){
@@ -36,11 +38,11 @@ describe('Test Ruler', () => {
                 cy.get(`div#accordion${index + 1}`).click();
             }
         })
-
+*/
         // test sketch point
         cy.get('button[data-tool-name="point"]').click();
 
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 );
@@ -65,7 +67,7 @@ describe('Test Ruler', () => {
 
         // test sketch Line
         cy.get('button[data-tool-name="line"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) - 100;
@@ -90,7 +92,7 @@ describe('Test Ruler', () => {
 
         // test sketch polygon
         cy.get('button[data-tool-name="polygon"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) + 100;
@@ -114,7 +116,7 @@ describe('Test Ruler', () => {
 
         // test sketch rectangle
         cy.get('button[data-tool-name="rectangle"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) + 300;
@@ -129,7 +131,7 @@ describe('Test Ruler', () => {
 
         // test sketch circle
         cy.get('button[data-tool-name="circle"]').click();
-        cy.get('canvas').then(($canvas) => {
+        cy.get('.mb-element-map canvas').then(($canvas) => {
             const width = $canvas.width();
             const height = $canvas.height();
             const x = Math.floor(width / 2 ) + 300;

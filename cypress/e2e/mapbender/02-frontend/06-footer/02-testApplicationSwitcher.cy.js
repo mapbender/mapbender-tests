@@ -15,7 +15,7 @@ describe('Test POI', () => {
     const waitLong = 1000;
     const waitShort = 200;
     const appLiArray = ['mapbender_user','mapbender_user_basic'];
-    it('Test POI', () => {
+    it('test App Switcher', () => {
         cy.CyLog("Test App Switcher", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.viewport(1200, 800);

@@ -12,8 +12,10 @@ describe('create new user', () => {
         cy.login({_username: user, _password: password});
     });
 
-    it('addMapbenderUser ', () => {
+    it('test add mapbender user ', () => {
+        cy.CyLog("create new user", "Start");
         cy.addMapbenderUser({ _username: userName, _email: userMail, _password: userPassword });
+        cy.CyLog("create new user", "Stopp");
     });
 
 })
