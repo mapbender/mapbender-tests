@@ -38,6 +38,7 @@ describe('add wms service to layerset', () => {
         cy.get('[data-test="mb-add-instance-main"]').scrollIntoView();
         cy.wait(waitLong);
 
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog('test add wms service layerset main', 'End');
     });

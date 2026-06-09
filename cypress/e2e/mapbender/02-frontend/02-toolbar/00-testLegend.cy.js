@@ -49,6 +49,7 @@ describe('Test Legend', () => {
         cy.wait(2000);
         cy.get('div.legend-dialog').find('button[data-test="mb-legend-btn-close"]').click();
 
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Legend", "End");
     })

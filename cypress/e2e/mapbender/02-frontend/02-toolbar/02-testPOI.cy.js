@@ -40,6 +40,8 @@ describe('Test POI', () => {
         cy.get('div.mb-poi-popup')
             .find('button.popupClose')
             .click();
+
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test POI", "End");
     })

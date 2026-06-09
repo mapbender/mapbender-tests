@@ -113,12 +113,8 @@ describe('Test print', () => {
             .find('div.text-end')
             .find('input[type="submit"]')
             .click();
-        //cy.get('div.text-end').find('input[type="submit"]').click();
-        // cy.get('textarea#custom_top_title').clear().type('This is a Cypress Test');
-        // cy.contains('Drucken').click();
-        // cy.wait(20000);
-        // cy.get('button.btn.btn-danger.btn-sm.popupClose').last().click();
 
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Print", "End");
 

@@ -46,6 +46,9 @@ describe('add user to group', () => {
         cy.deleteMapbenderUser(userName);
         cy.showBanner('delete Group ' + mbGroup);
         cy.deleteMapbenderGroup(mbGroup);
+        cy.visit(mainUrl);
+        cy.contains(myAppTitle).scrollIntoView({ offset: { top: -200, left:0 } });
+        cy.wait(500);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog('test add user to group', 'End');
     });

@@ -57,6 +57,7 @@ describe('add link to toolbar in layout', () => {
         cy.get('button[data-test="mb-submit"]').click();
         cy.wait(waitLong);
 
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog('test add link to toolbar in layout', 'End');
     });

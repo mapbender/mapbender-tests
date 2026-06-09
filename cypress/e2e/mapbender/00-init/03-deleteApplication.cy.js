@@ -13,7 +13,7 @@ describe('delete application', () => {
 
     it('test delete application', () => {
         cy.contains(myAppTitle).scrollIntoView({ offset: { top: -200, left:0 } });
-        cy.wait(2000);
+        cy.wait(500);
         cy.deleteApplication({ _slug: myAppSlug });
     });
 

@@ -26,6 +26,7 @@ describe('Test Bildexport', () => {
         //cy.wait(10000)
         cy.get('button.popupClose').last().click()
 
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Image Export", "End");
     })
