@@ -12,11 +12,11 @@ module.exports = defineConfig({
     // },
     env : {
       application : {
-        title : 'Mapbender Demo Cypress',
+        title : 'Mapbender Demo Cypress 5',
         slug : 'Mapbender_Demo_CYPRESS',
         user: 'root',
         password: 'root',
-        mainUrl: 'http://localhost/mapbender4/',
+        mainUrl: 'http://localhost/mapbender5/',
         layer : {
             1 : 'Themen'
         },
