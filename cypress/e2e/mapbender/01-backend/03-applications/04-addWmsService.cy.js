@@ -32,7 +32,8 @@ describe('add wms service to layerset', () => {
             cy.get('a.checkContainer').contains(item).first().click();
             cy.get('input[type="submit"]').first().click();
             cy.wait(waitShort);
-            cy.get('a.btn-light').contains('Back').click();
+            //cy.get('a.btn-light').contains('Back').click();
+            cy.get('[data-test="mb-back"]').first().click();
             cy.wait(waitShort);
         })
         cy.get('[data-test="mb-add-instance-main"]').scrollIntoView();
