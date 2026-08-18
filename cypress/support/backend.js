@@ -118,12 +118,56 @@ Cypress.Commands.add('addMapbenderSource', (sourceServiceURI, sourceLink) => {
 // cy.deleteMapbenderSource(sourceTitle);
 Cypress.Commands.add('deleteMapbenderSource', (sourceTitle) => {
     cy.CyLog('call function deleteMapbenderSource', 'start');
-    const url = Cypress.env('application')['mainUrl'];
-    cy.visit(url + 'manager/repository');
+    const mainUrl = Cypress.env('application')['mainUrl'];
+    cy.visit(mainUrl + 'manager/repository');
 
-    cy.get('a[data-test="mb-delete-source-' + sourceTitle + '"]').then($elem => {
-        cy.wrap($elem).first().click();
-        cy.get('button[data-test="mb-submit"]').click();
+    const selector = 'a[data-test="mb-delete-source-' + sourceTitle + '"]';
+
+    // Delete-URL aus dem data-url-Attribut des Links auslesen,
+    // dann per cy.request() direkt DELETE durchführen (kein Modal-Interaktion nötig).
+    // 1. GET → HTML-Fragment mit Symfony-Formular + CSRF-Token
+    // 2. POST mit CSRF-Token → Quelle wird gelöscht
+    cy.get(selector).first().then($el => {
+        const deleteRelUrl = $el.attr('data-url');
+        const baseOrigin = 'http://localhost';
+        const deleteFullUrl = deleteRelUrl.startsWith('http') ? deleteRelUrl : baseOrigin + deleteRelUrl;
+
+        cy.request({ method: 'GET', url: deleteFullUrl }).then(response => {
+            // CSRF-Token aus dem HTML-Fragment extrahieren
+            const match = response.body.match(/name="form\[_token\]"\s+value="([^"]+)"/);
+            const token = match ? match[1] : '';
+            cy.mbLog('CSRF-Token gefunden: ' + (token ? 'ja' : 'NEIN'));
+
+            cy.request({
+                method: 'POST',
+                url: deleteFullUrl,
+                form: true,
+                body: { 'form[_token]': token },
+                followRedirect: true,
+            });
+        });
     });
+
     cy.CyLog('call function deleteMapbenderSource', 'stopp');
 });
+
+// Delete ALL Data Sources matching the given title (recursive)
+// cy.deleteAllMapbenderSources(sourceTitle);
+Cypress.Commands.add('deleteAllMapbenderSources', (sourceTitle) => {
+    const url = Cypress.env('application')['mainUrl'];
+    const selector = 'a[data-test="mb-delete-source-' + sourceTitle + '"]';
+
+    const deleteNext = () => {
+        cy.visit(url + 'manager/repository');
+        cy.get('body').then($body => {
+            if ($body.find(selector).length === 0) {
+                return;
+            }
+            cy.deleteMapbenderSource(sourceTitle);
+            deleteNext();
+        });
+    };
+
+    deleteNext();
+});
+

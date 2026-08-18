@@ -24,7 +24,8 @@ describe('Test Bildexport', () => {
         cy.get('input[data-test="imageexport-btn-submit"]').click()
 
         //cy.wait(10000)
-        cy.get('button.popupClose').last().click()
+        cy.get('div.mapbender-popup').find('i.fa-xmark').click();
+        //cy.get('button.popupClose').last().click()
 
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Image Export", "End");

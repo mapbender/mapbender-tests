@@ -18,30 +18,14 @@ describe('Delete Data Source', () => {
         const url = Cypress.env('application')['mainUrl'];
         cy.visit(url + 'manager/repository');
 
-        // WMS Service delete
-        cy.get('a[data-test="mb-delete-source-' + dataSourceTitleWMS + '"]').then($elem =>{
-            const wmsLength = $elem.length;
-            for (let i = 0; i < $elem.length; i++){
-                cy.deleteMapbenderSource(dataSourceTitleWMS);
-            }
-        });
+        // WMS Service delete (alle Vorkommen rekursiv)
+        cy.deleteAllMapbenderSources(dataSourceTitleWMS);
 
         // WMTS Service delete
-        cy.get('a[data-test="mb-delete-source-' + dataSourceTitleWMTS + '"]').then($elem =>{
-            const wmsLength = $elem.length;
-            for (let i = 0; i < $elem.length; i++){
-                cy.deleteMapbenderSource(dataSourceTitleWMTS);
-            }
-        });
+        cy.deleteAllMapbenderSources(dataSourceTitleWMTS);
 
         // Vector tile Service delete
-        cy.get('a[data-test="mb-delete-source-' + dataSourceTitleVT + '"]').then($elem =>{
-            const wmsLength = $elem.length;
-            for (let i = 0; i < $elem.length; i++){
-                cy.deleteMapbenderSource(dataSourceTitleVT);
-            }
-        });
-
+        cy.deleteAllMapbenderSources(dataSourceTitleVT);
 
         cy.wait(waitLong);
         cy.CyLog('Test delete Data Source', 'End');
