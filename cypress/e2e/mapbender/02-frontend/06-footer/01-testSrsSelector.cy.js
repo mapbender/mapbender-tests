@@ -36,6 +36,7 @@ describe('Test POI', () => {
             cy.wait(waitLong);
         });
 
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Srs Selector", "End");
     })

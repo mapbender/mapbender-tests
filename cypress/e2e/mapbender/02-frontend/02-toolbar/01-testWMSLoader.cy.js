@@ -47,6 +47,8 @@ describe('Test WMS-Loader', () => {
             .click();
 
         cy.wait(waitLong);
+
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test WMS-Loader", "End");
     })

@@ -52,6 +52,8 @@ describe('Test Ruler', () => {
             cy.wrap($canvas).dblclick(x,y);
 
         });
+
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Ruler", "End");
     })

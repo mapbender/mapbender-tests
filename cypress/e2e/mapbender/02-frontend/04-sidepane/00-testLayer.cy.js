@@ -43,6 +43,7 @@ describe('Test layer', () => {
                 }
             })
 
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Layertree", "End");
     })

@@ -17,8 +17,8 @@ Cypress.Commands.add('copyApplication', (new_application) => {
 // cy.deleteApplication({ _apptitle: 'test'})
 Cypress.Commands.add('deleteApplication', (app) => {
     cy.CyLog('call function deleteApplication', 'start');
-    const url = Cypress.env('application')['mainUrl']
-    cy.visit(url);
+    //const url = Cypress.env('application')['mainUrl']
+    //cy.visit(url);
     cy.get('[data-test="' + app._slug + '-delete"]').click();
     cy.get('button[data-test="mb-submit"]').click();
     cy.CyLog('call function deleteApplication', 'stopp');

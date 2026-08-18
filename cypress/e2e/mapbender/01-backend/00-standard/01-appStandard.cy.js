@@ -33,7 +33,7 @@ describe('check_backend_main_functions', () => {
         cy.wait(2000);
         cy.visit(mainUrl);
         cy.contains(myAppTitle).scrollIntoView({ offset: { top: -200, left:0 } });
-        //cy.wait(3000);
+        cy.wait(500);
         cy.deleteApplication({ _slug: myAppSlug });
     });
 

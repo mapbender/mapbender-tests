@@ -29,16 +29,7 @@ describe('Test Ruler', () => {
 
         // activate the sketches
         cy.selectSidePaneElement( mbSelector );
-        /*
-        cy.get('div.container-accordion').each(($container, index) =>{
-            const $mbElement = $container.find(mbSelector);
-            if($mbElement.length > 0 ){
-                const cssClass = $mbElement.attr('class');
-                cy.CyLog('>>>>>>>>', `Container ${index + 1} hat Mapbender-Klasse: ${cssClass}`)
-                cy.get(`div#accordion${index + 1}`).click();
-            }
-        })
-*/
+
         // test sketch point
         cy.get('button[data-tool-name="point"]').click();
 
@@ -145,6 +136,7 @@ describe('Test Ruler', () => {
         cy.wait(waitLong);
 
         // Delete test application
+        cy.visit(mainUrl);
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test Sketches", "End");
     })
