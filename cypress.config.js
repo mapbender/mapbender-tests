@@ -3,7 +3,7 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
 
   e2e: {
-    baseUrl: 'http://localhost',
+    baseUrl: 'http://mapbender4.localhost',
     experimentalRunAllSpecs: true,
     viewportHeight: 800,
     viewportWidth: 1280,
@@ -16,7 +16,7 @@ module.exports = defineConfig({
         slug : 'Mapbender_Demo_CYPRESS',
         user: 'root',
         password: 'root',
-        mainUrl: 'http://localhost/mapbender4/',
+        mainUrl: 'http://mapbender4.localhost',
         layer : {
             1 : 'Themen'
         },
