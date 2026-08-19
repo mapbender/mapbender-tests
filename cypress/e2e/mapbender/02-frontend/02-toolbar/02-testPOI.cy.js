@@ -38,7 +38,7 @@ describe('Test POI', () => {
             .click();
         cy.wait(waitLong);
         cy.get('div.mb-poi-popup')
-            .find('button.popupClose')
+            .find('.popupClose')
             .click();
         cy.deleteApplication({ _slug: myAppSlug });
         cy.CyLog("Test POI", "End");

@@ -13,6 +13,7 @@ describe('Test print', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
     it('test print', () => {
+        const selectorPrefix = '.mb-element-printclient:not(.mb-element-batchprintclient) ';
         cy.CyLog("Test Print", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         // Chance default ViewPort. Because the print button is not visible in smaller sizes
@@ -23,7 +24,7 @@ describe('Test print', () => {
         cy.get('span[data-test="mb-iconPrint"]').click();
 
         // Test the template choice
-        cy.get('label.form-label[for="template"]')
+        cy.get(selectorPrefix + 'label.form-label[for="template"]')
             .siblings('div.dropdown')
             .then(($element) =>{
 
@@ -47,7 +48,7 @@ describe('Test print', () => {
         });
 
         // Test the quality choice
-        cy.get('label.form-label[for="quality"]')
+        cy.get(selectorPrefix + 'label.form-label[for="quality"]')
             .siblings('div.dropdown')
             .then(($element) => {
 
@@ -63,7 +64,7 @@ describe('Test print', () => {
         });
 
         // Test the scale choice
-        cy.get('label.form-label[for="scale_select"]')
+        cy.get(selectorPrefix + 'label.form-label[for="scale_select"]')
             .siblings('div.dropdown')
             .then(($element) => {
                 cy.CyLog("PRINT: ", "test the scales: Element length:" + $element.length);
@@ -91,7 +92,7 @@ describe('Test print', () => {
         });
 
         // Test the scale rotation
-        cy.get('label.form-label[for="rotation"]')
+        cy.get(selectorPrefix + 'label.form-label[for="rotation"]')
             .siblings('input#rotation')
             .then(($element) => {
                 cy.CyLog("PRINT: ", "test the rotation");
@@ -100,7 +101,7 @@ describe('Test print', () => {
         });
 
         // Test the scale Title
-        cy.get('label.form-label[for="custom_bottom_extra_title"]')
+        cy.get(selectorPrefix + 'label.form-label[for="custom_bottom_extra_title"]')
             .siblings('input#custom_bottom_extra_title')
             .then(($element) => {
                 cy.CyLog("PRINT: ", "test the rotation");
@@ -108,7 +109,7 @@ describe('Test print', () => {
                 cy.wait(200);
         });
 
-        cy.get('input#printLegend').click();
+        cy.get(selectorPrefix + 'input#printLegend').click();
         cy.get('div.customPrintDialog')
             .find('div.text-end')
             .find('input[type="submit"]')

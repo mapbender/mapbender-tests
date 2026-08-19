@@ -13,7 +13,7 @@ describe('Test Ruler', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
     // create selector for ruler
-    const mbSelector = 'div.accordion-cell div.mb-element-ruler';
+    const mbSelector = 'div.mb-element-ruler';
     it('test ruler', () => {
         cy.CyLog("Test Ruler", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );

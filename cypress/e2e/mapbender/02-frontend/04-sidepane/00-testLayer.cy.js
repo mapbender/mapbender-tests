@@ -13,7 +13,7 @@ describe('Test layer', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
     // create selector for layertree
-    const mbSelector = 'div.accordion-cell div.mb-element-layertree';
+    const mbSelector = 'div.mb-element-layertree';
     it('test layertree', () => {
         cy.CyLog("Test layertree", "Start");
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );

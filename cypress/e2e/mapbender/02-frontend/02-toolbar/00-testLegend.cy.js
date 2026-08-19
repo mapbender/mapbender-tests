@@ -13,22 +13,14 @@ describe('Test Legend', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
     // create selector for layertree (layers must be activated for legend)
-    const mbSelector = 'div.accordion-cell div.mb-element-layertree';
+    const mbSelector = 'div.mb-element-layertree';
     it('test map legend', () => {
         cy.CyLog("Test Legend", "Start");
         cy.showBanner("Legend test!")
         cy.copyApplication({ _title: myAppTitle, _slug: myAppSlug } );
         cy.visit(myUrl);
 
-        // activate Layertree.
-        cy.get('div.container-accordion').each(($container, index) =>{
-            const $mbElement = $container.find(mbSelector);
-            if($mbElement.length > 0 ){
-                const cssClass = $mbElement.attr('class');
-                cy.CyLog('Test Layertree', `sidepane class to activate: ${cssClass}`)
-                cy.get(`div#accordion${index + 1}`).click();
-            }
-        })
+        cy.selectSidePaneElement( mbSelector );
 
         /**
          * Read and process all main layer nodes

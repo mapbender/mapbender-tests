@@ -13,7 +13,7 @@ describe('Test Ruler', () => {
 
     const myUrl = mainUrl + 'application/' + myAppSlug;
     // create selector for ruler
-    const mbSelector = 'div.accordion-cell div.mb-element-sketch';
+    const mbSelector = 'div.mb-element-sketch';
     const waitLong = 1000;
     const waitShort = 200;
     const btnBlue = 'button[data-color="#009ee0"]';
@@ -29,16 +29,7 @@ describe('Test Ruler', () => {
 
         // activate the sketches
         cy.selectSidePaneElement( mbSelector );
-        /*
-        cy.get('div.container-accordion').each(($container, index) =>{
-            const $mbElement = $container.find(mbSelector);
-            if($mbElement.length > 0 ){
-                const cssClass = $mbElement.attr('class');
-                cy.CyLog('>>>>>>>>', `Container ${index + 1} hat Mapbender-Klasse: ${cssClass}`)
-                cy.get(`div#accordion${index + 1}`).click();
-            }
-        })
-*/
+
         // test sketch point
         cy.get('button[data-tool-name="point"]').click();
 

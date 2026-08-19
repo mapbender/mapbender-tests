@@ -75,6 +75,9 @@ parameters:
     mapbender.automatic_locale: false  
 ```
 
+Also, make sure the mapbender installation is in prod environment (the dev toolbar hides some elements in the frontend
+resulting in failing tests), and disable all autoOpen elements in the mapbender_user yaml application, otherwise the tests will fail because the elements are not visible/accessible.
+
 ### Installation Cypress
 
 Node.js and npm:  
